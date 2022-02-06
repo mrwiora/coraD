@@ -2,11 +2,15 @@ coraD
 =========
 
 Control & Operation Restful API Daemon
+
 The heart of future system management interfaces
 
 Do you need a piece of software that offers an abstraction layer between a frontend service and the execution of commands on a system?
 This software is intended to be out-of-the-box ansible ready, so operations can be performed just by starting an ansible playbook with parameters.
 
+THANKS to @michaelrommel for his always open ear and sharing his fascination about node.js :) This would be some GoLang Code otherwise
+
+ALPHA-Status
 > :warning: **service is running as root**: Currently coraD must be run as root - for the same reason as other system manamgent software also does (access to system services, perform certain actions like exchanging system files etc.). This is subject to be changed in the future (see todo)
 
 adjust coraD to your requirements (pay attention to prerequisites) via `config.js`
