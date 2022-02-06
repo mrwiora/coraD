@@ -1,0 +1,24 @@
+---
+
+- hosts: localhost
+  gather_facts: False
+  connection: local
+
+  tasks:
+
+      - name: print text variable
+        ansible.builtin.debug:
+          msg: "Variable has been set: {{ text }}"
+
+      - name: write textfile
+        ansible.builtin.copy:
+          content: "{{ text }}"
+          dest: /var/www/html/txt.html
+          owner: www-data
+          group: www-data
+          mode: '0644'
+
+      - name: restart nginx service
+        ansible.builtin.service:
+          name: nginx
+          state: restarted
