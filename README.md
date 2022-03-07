@@ -8,7 +8,7 @@ The heart of future system management interfaces
 Do you need a piece of software that offers an abstraction layer between a frontend service and the execution of commands on a system?
 This software is intended to be out-of-the-box ansible ready, so operations can be performed just by starting an ansible playbook with parameters.
 
-THANKS to @michaelrommel for his always open ear and sharing his fascination about node.js :) This would be some GoLang Code otherwise
+THANKS to @michaelrommel for his always open ear and sharing his fascination about node.js :)
 
 ALPHA-Status
 > :warning: **service is running as root**: Currently coraD must be run as root - for the same reason as other system manamgent software also does (access to system services, perform certain actions like exchanging system files etc.). This is subject to be changed in the future (see todo)
@@ -42,7 +42,7 @@ start expectets the playbook-subfolder and the extra-vars
 ```
 the return shows me the processid `411106`
 
-the output of the given process is being collected by the nodejs applicatino and redirected to the redis in memory database
+the output of the given process is being collected by the nodejs application
 ```
 # curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE2NDQyMzAyODN9.wN1S8vSkEGO_BjMEhFg5vrIFenP_4NvEXZzZeT2Pf3g' http://127.0.0.1:3000/status?procid=411106
 ["\nPLAY [localhost] ***************************************************************\n","\nTASK [print text variable] *****************************************************\n","ok: [localhost] => {\n    \"msg\": \"Variable has been set: HelloWorldFromCurl\"\n}\n","\nTASK [write textfile] **********************************************************\n","changed: [localhost]\n","\nTASK [restart nginx service] ***************************************************\n","changed: [localhost]\n","\nPLAY RECAP *********************************************************************\n","localhost                  : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   \n\n"]
@@ -54,13 +54,11 @@ with an installed nginx, the server should now offer the provided text under `ht
 based on
 ---------------
 - fastify web framework
-- redis in memory data structure store
 
 prerequisites
 ---------------
 - nodejs (https://github.com/Schniz/fnm; fnm install)
 - ansible (`apt install -y python3 python3-pip && pip3 install ansible`)
-- redis (`apt install -y redis`)
 
 soft prerequisite
 ---------------
