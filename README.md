@@ -1,7 +1,7 @@
-coraD-edge
+coraD
 =========
 
-Control & Operation Restful API Daemon - Edge Part
+Control & Operation Restful API Daemon - Core Part
 
 The heart of future system management interfaces
 
