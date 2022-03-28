@@ -1,7 +1,7 @@
-coraD
+coraD-edge
 =========
 
-Control & Operation Restful API Daemon
+Control & Operation Restful API Daemon - Edge Part
 
 The heart of future system management interfaces
 
@@ -10,8 +10,16 @@ This software is intended to be out-of-the-box ansible ready, so operations can 
 
 THANKS to @michaelrommel for his always open ear and sharing his fascination about node.js :)
 
+```
+architecture picture - highlighted edge
+```
+
+=========	
+
 ALPHA-Status
-> :warning: **service is running as root**: Currently coraD must be run as root - for the same reason as other system manamgent software also does (access to system services, perform certain actions like exchanging system files etc.). This is subject to be changed in the future (see todo)
+> :warning: This software is currently under heavy construction. Large changes are currently always possible.
+
+=========
 
 adjust coraD to your requirements (pay attention to prerequisites) via `config.js`
 
@@ -28,25 +36,25 @@ root@debian:~/corad# npm start
 
 first an authentication token must be obtained:
 ```
-# curl -X POST -H 'Content-Type: application/json' -d '{"foo":"bar"}' http://127.0.0.1:3000/signup
-{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE2NDQyMzAyODN9.wN1S8vSkEGO_BjMEhFg5vrIFenP_4NvEXZzZeT2Pf3g"}
+# curl -X POST -H 'Content-Type: application/json' -d '{"user":"install","password":"serial"}' http://127.0.0.1:3000/signup
+```
+as a result you should get an up2date bearer token:
+```
+{"status":"ok","csrf":"csrf_hash","data":[{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGdvcml0aG0iOiJIUzI1NiIsImV4cGlyZXNJbiI6MTIwLCJzdWJqZWN0IjoiaW5zdGFsbCIsImlhdCI6MTY0ODU0MjE1Mn0.Fw6uNjoCjUAlFChgctOmA9r8iDSnTPmlJe0Js7i3KA8"}],"errors":[]}
 ```
 as long as this signup interface is open and without any verification, new tokens can be created (open during alpha phase)
 
-with this token it is possible to access the interfaces /start and /status with the necessary parameters
+with this token it is possible to access the interfaces /start with the necessary parameters
 
-start expectets the playbook-subfolder and the extra-vars
+start expects the playbook-subfolder and the extra-vars
 ```
-# curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE2NDQyMzAyODN9.wN1S8vSkEGO_BjMEhFg5vrIFenP_4NvEXZzZeT2Pf3g' http://127.0.0.1:3000/start?playbook=testplay\&extra_vars='\{"text":"HelloWorldFromCurl"\}'
-{"module":"start","result":"ok","procid":411106}
+# curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGdvcml0aG0iOiJIUzI1NiIsImV4cGlyZXNJbiI6MTIwLCJzdWJqZWN0IjoiaW5zdGFsbCIsImlhdCI6MTY0ODU0MjE1Mn0.Fw6uNjoCjUAlFChgctOmA9r8iDSnTPmlJe0Js7i3KA8' http://127.0.0.1:3000/start?playbook=testplay\&extra_vars='\{"text":"HelloWorldFromCurl"\}'
 ```
-the return shows me the processid `411106`
+expected result something like:
+```
 
-the output of the given process is being collected by the nodejs application
 ```
-# curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOjE2NDQyMzAyODN9.wN1S8vSkEGO_BjMEhFg5vrIFenP_4NvEXZzZeT2Pf3g' http://127.0.0.1:3000/status?procid=411106
-["\nPLAY [localhost] ***************************************************************\n","\nTASK [print text variable] *****************************************************\n","ok: [localhost] => {\n    \"msg\": \"Variable has been set: HelloWorldFromCurl\"\n}\n","\nTASK [write textfile] **********************************************************\n","changed: [localhost]\n","\nTASK [restart nginx service] ***************************************************\n","changed: [localhost]\n","\nPLAY RECAP *********************************************************************\n","localhost                  : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   \n\n"]
-```
+
 
 with an installed nginx, the server should now offer the provided text under `http://localhost/txt.html`
 
@@ -54,6 +62,7 @@ with an installed nginx, the server should now offer the provided text under `ht
 based on
 ---------------
 - fastify web framework
+- redis
 
 prerequisites
 ---------------
@@ -79,6 +88,6 @@ basics
 - [x] Scheduler to ask external server for Todos
 
 security-improvement
-- [ ] separating externally communicating service run as service user, while root-process for internal communication only
+- [x] separating externally communicating service run as service user, while root-process for internal communication only
 - [ ] external sever endpoint verification
 - [ ] playbook package signature verification
