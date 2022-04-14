@@ -51,7 +51,7 @@ xread({ stream: 'work2do', id: '$' })
 // start subprocess routine
 function createFunction(playbook, extra_vars, cb) {
     var spawn = require('child_process').spawn;
-    var child = spawn('/usr/local/bin/ansible-playbook', [config.app.playbookpath + playbook + '/playbook.yml','-i','inventory','-e',extra_vars], { env: { ...process.env, ANSIBLE_PIPELINING: true, ANSIBLE_STDOUT_CALLBACK: 'json' }});
+    var child = spawn('/usr/local/bin/ansible-playbook', [config.app.playbookpath + playbook + '/playbook.yml','-i','/tmp/inventory','-e',extra_vars], { env: { ...process.env, ANSIBLE_PIPELINING: true, ANSIBLE_STDOUT_CALLBACK: 'json' }});
     
     var answer = "";
 
