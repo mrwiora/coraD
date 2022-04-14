@@ -1,6 +1,6 @@
 {
     "app": {
-        "schedulerms": 30000
+        "playbookpath": "./"
     },
     "redis": {
         "host": "127.0.0.1",
