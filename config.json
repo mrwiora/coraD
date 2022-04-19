@@ -1,5 +1,6 @@
 {
     "app": {
+        "ansiblebinpath": "/usr/bin/ansible-playbook",
         "playbookpath": "./"
     },
     "redis": {
