@@ -1,4 +1,4 @@
-coraD
+coraD-core
 =========
 
 Control & Operation Restful API Daemon - Core Part
@@ -10,9 +10,7 @@ This software is intended to be out-of-the-box ansible ready, so operations can 
 
 THANKS to @michaelrommel for his always open ear and sharing his fascination about node.js :)
 
-```
-architecture picture - highlighted edge
-```
+![coraD-core](readme_resources/coraD-core.png)
 
 =========	
 
